@@ -42,7 +42,7 @@ namespace DiscordTagger
         }
 
         /// <summary>
-        /// делаем отписку от роли по любой реакции на наше сообщение
+        /// РґРµР»Р°РµРј РѕС‚РїРёСЃРєСѓ РѕС‚ СЂРѕР»Рё РїРѕ Р»СЋР±РѕР№ СЂРµР°РєС†РёРё РЅР° РЅР°С€Рµ СЃРѕРѕР±С‰РµРЅРёРµ
         /// </summary>
         /// <param name="message"></param>
         /// <param name="arg2"></param>
@@ -64,7 +64,7 @@ namespace DiscordTagger
         }
 
         /// <summary>
-        /// События на голосовых каналах - вход\выход + комбинация
+        /// РЎРѕР±С‹С‚РёСЏ РЅР° РіРѕР»РѕСЃРѕРІС‹С… РєР°РЅР°Р»Р°С… - РІС…РѕРґ\РІС‹С…РѕРґ + РєРѕРјР±РёРЅР°С†РёСЏ
         /// </summary>
         /// <param name="Sender"></param>
         /// <param name="LeavedChannel"></param>
@@ -109,7 +109,7 @@ namespace DiscordTagger
         }
 
         /// <summary>
-        /// получает связанную роль из кэша, если такая есть
+        /// РїРѕР»СѓС‡Р°РµС‚ СЃРІСЏР·Р°РЅРЅСѓСЋ СЂРѕР»СЊ РёР· РєСЌС€Р°, РµСЃР»Рё С‚Р°РєР°СЏ РµСЃС‚СЊ
         /// </summary>
         /// <param name="socketVoiceChannel"></param>
         /// <returns></returns>
@@ -127,7 +127,7 @@ namespace DiscordTagger
         }
 
         /// <summary>
-        /// Проверка активности пользователя перед добавлением в связанную группу
+        /// РџСЂРѕРІРµСЂРєР° Р°РєС‚РёРІРЅРѕСЃС‚Рё РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РїРµСЂРµРґ РґРѕР±Р°РІР»РµРЅРёРµРј РІ СЃРІСЏР·Р°РЅРЅСѓСЋ РіСЂСѓРїРїСѓ
         /// </summary>
         /// <param name="socketVoiceChannel"></param>
         /// <param name="userName"></param>
@@ -149,7 +149,7 @@ namespace DiscordTagger
         }
 
         /// <summary>
-        /// Задержка перед отправкой уведомления - приглашения
+        /// Р—Р°РґРµСЂР¶РєР° РїРµСЂРµРґ РѕС‚РїСЂР°РІРєРѕР№ СѓРІРµРґРѕРјР»РµРЅРёСЏ - РїСЂРёРіР»Р°С€РµРЅРёСЏ
         /// </summary>
         /// <param name="socketVoiceChannel"></param>
         /// <param name="userName"></param>
@@ -166,9 +166,10 @@ namespace DiscordTagger
                 var message = await textChannel.SendMessageAsync($"user {userName} start plays the <@&{implementationItem.GroupId}> \n" +
                     $"Who would join him? \n" +
                     $"To unsubscribe the notifications add any reaction to this message\n" +
-                    $"You will be added to linked group if you played on channel 30+minutes\n" +
-                    $"Чтобы отписаться от уведомлений - добавь реакцию на это сообщение\n" +
-                    $"Общаясь в соответствующем голосовом чате (30+минут) ты будешь автоматически добавлен в группу");
+                    $"You will be added to linked group if you played on channel 30+minutes\n"+
+                    $"Р§С‚РѕР±С‹ РѕС‚РїРёСЃР°С‚СЊСЃСЏ РѕС‚ СѓРІРµРґРѕРјР»РµРЅРёР№ - РґРѕР±Р°РІСЊ СЂРµР°РєС†РёСЋ РЅР° СЌС‚Рѕ СЃРѕРѕР±С‰РµРЅРёРµ\n" +
+                    $"РћР±С‰Р°СЏСЃСЊ РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰РµРј РіРѕР»РѕСЃРѕРІРѕРј С‡Р°С‚Рµ (30+РјРёРЅСѓС‚) С‚С‹ Р±СѓРґРµС€СЊ Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРё РґРѕР±Р°РІР»РµРЅ РІ РіСЂСѓРїРїСѓ"
+                    );
                 _savedMessages.Add(new SavedMessage() { RestUserMessage = message, VoiceChannel = socketVoiceChannel , TextChannel = textChannel});
             }
         }
