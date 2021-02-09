@@ -38,16 +38,6 @@ namespace DiscordTagger
 
         public async Task MainAsync()
         {
-            int.TryParse(Environment.GetEnvironmentVariable("PORT"), out var port);
-
-            if (port == 0)
-            {
-                port = 5000;
-            }
-            //это необходимо для того, чтобы деплой сервер (heroku) не уводил в сон приложение
-            var listener = TcpListener.Create(port);
-            listener.Start();
-
             _client = new DiscordSocketClient();
             _client.Log += Log;
 
