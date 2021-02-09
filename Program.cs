@@ -34,12 +34,16 @@ namespace DiscordTagger
 
         private async static Task KeepAlivePinger()
         {
-            await Task.Delay(10 * 60 * 1000);
+            while(true)
+            {
+                await Task.Delay(10 * 60 * 1000);
 
-            using(WebClient client = new WebClient())
-{
-                client.DownloadString("https://discordagger3110.herokuapp.com/");
+                using (WebClient client = new WebClient())
+                {
+                    client.DownloadString("https://discordagger3110.herokuapp.com/");
+                }
             }
+           
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
