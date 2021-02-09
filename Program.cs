@@ -20,8 +20,13 @@ namespace DiscordTagger
     {
         public static void Main(string[] args)
         {
+            Run(args);
+        }
+
+        public static async void Run(string[] args)
+        {
+            new Program().MainAsync();
             CreateHostBuilder(args).Build().Run();
-            new Program().MainAsync().GetAwaiter().GetResult();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
