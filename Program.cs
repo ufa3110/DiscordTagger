@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Discord.Rest;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Net.Sockets;
 
 namespace DiscordTagger
 {
@@ -22,6 +23,16 @@ namespace DiscordTagger
 
         public async Task MainAsync()
         {
+            int.TryParse(Environment.GetEnvironmentVariable("PORT"), out var port);
+
+            if (port == 0)
+            {
+                port = 5000;
+            }
+
+            var listener = TcpListener.Create(port);
+            listener.Start();
+
             _client = new DiscordSocketClient();
             _client.Log += Log;
 
