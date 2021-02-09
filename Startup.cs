@@ -26,6 +26,10 @@ namespace DiscordTagger
                 {
                     await context.Response.WriteAsync("Hello World!");
                 });
+                endpoints.MapGet("/index", async context =>
+                {
+                    await context.Response.WriteAsync("Hello World!");
+                });
             });
         }
     }
