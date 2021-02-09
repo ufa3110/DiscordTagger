@@ -36,9 +36,30 @@ namespace DiscordTagger
             await _client.LoginAsync(TokenType.Bot, token);
             await _client.StartAsync();
 
+            _client.Connected += DeleteAllOwnMessages;
+
             // Block this task until the program is closed.
             await Task.Delay(-1);
 
+        }
+        /// <summary>
+        /// удаляет все сообщения своего авторства
+        /// </summary>
+        async Task DeleteAllOwnMessages()
+        {
+            var guilds = _client.Guilds;
+            foreach (var guild in guilds)
+            {
+                foreach (var channel in guild.TextChannels)
+                {
+                    var myMessages = channel.CachedMessages.Where(_ => _.Author.Id == _client.CurrentUser.Id);
+
+                    foreach (var message in myMessages)
+                    {
+                        message.DeleteAsync();
+                    }
+                }
+            }
         }
 
         /// <summary>
