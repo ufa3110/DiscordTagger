@@ -29,7 +29,7 @@ namespace DiscordTagger
             {
                 port = 5000;
             }
-
+            //это необходимо для того, чтобы деплой сервер (heroku) не уводил в сон приложение
             var listener = TcpListener.Create(port);
             listener.Start();
 
