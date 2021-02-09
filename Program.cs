@@ -47,16 +47,24 @@ namespace DiscordTagger
         /// </summary>
         async Task DeleteAllOwnMessages()
         {
+            DeleteAllOwnMessagesAsync();
+        }
+
+        async Task DeleteAllOwnMessagesAsync()
+        {
             var guilds = _client.Guilds;
             foreach (var guild in guilds)
             {
                 foreach (var channel in guild.TextChannels)
                 {
-                    var myMessages = channel.CachedMessages.Where(_ => _.Author.Id == _client.CurrentUser.Id);
+                    var myMessages = await channel.GetMessagesAsync(100).FirstOrDefaultAsync();
+
+                    myMessages = myMessages.Where(_ => _.Author.Id == _client.CurrentUser.Id).ToList();
 
                     foreach (var message in myMessages)
                     {
-                        message.DeleteAsync();
+                        await message.DeleteAsync();
+                        await Task.Delay(500);
                     }
                 }
             }
@@ -85,13 +93,27 @@ namespace DiscordTagger
         }
 
         /// <summary>
-        /// События на голосовых каналах - вход\выход + комбинация
+        /// чтобы точно не ждать поток в обработчике апи
         /// </summary>
         /// <param name="Sender"></param>
         /// <param name="LeavedChannel"></param>
         /// <param name="JoinedChannel"></param>
         /// <returns></returns>
         private async Task onVoiceChannelUpdated(SocketUser Sender, SocketVoiceState LeavedChannel, SocketVoiceState JoinedChannel)
+        {
+            onVoiceChannelUpdatedAsync(Sender, LeavedChannel, JoinedChannel);
+        }
+
+
+
+        /// <summary>
+        /// События на голосовых каналах - вход\выход + комбинация
+        /// </summary>
+        /// <param name="Sender"></param>
+        /// <param name="LeavedChannel"></param>
+        /// <param name="JoinedChannel"></param>
+        /// <returns></returns>
+        private async Task onVoiceChannelUpdatedAsync(SocketUser Sender, SocketVoiceState LeavedChannel, SocketVoiceState JoinedChannel)
         {
             if (LeavedChannel.VoiceChannel != null)
             {
@@ -102,7 +124,7 @@ namespace DiscordTagger
                     var message = _savedMessages.FirstOrDefault(_ => _.VoiceChannel?.Id.Equals(LeavedChannel.VoiceChannel?.Id) ?? false);
                     if (message != null)
                     {
-                        await message.TextChannel.DeleteMessageAsync(message.RestUserMessage.Id);
+                        message.TextChannel.DeleteMessageAsync(message.RestUserMessage.Id);
                         _savedMessages.Remove(message);
                     }
                 }
@@ -114,7 +136,7 @@ namespace DiscordTagger
                 var channelUsersCount = JoinedChannel.VoiceChannel.Users.Count;
                 if (channelUsersCount == 1)
                 {
-                    await WaitAndCheckUser(JoinedChannel.VoiceChannel, JoinedChannel.VoiceChannel.Users.FirstOrDefault().Username, 15000);
+                    WaitAndCheckUser(JoinedChannel.VoiceChannel, JoinedChannel.VoiceChannel.Users.FirstOrDefault().Username, 15000);
                 }
 
                 var role = await GetRole(JoinedChannel.VoiceChannel);
@@ -187,9 +209,9 @@ namespace DiscordTagger
                 var message = await textChannel.SendMessageAsync($"user {userName} start plays the <@&{implementationItem.GroupId}> \n" +
                     $"Who would join him? \n" +
                     $"To unsubscribe the notifications add any reaction to this message\n" +
-                    $"You will be added to linked group if you played on channel 30+minutes\n"+
-                    $"Чтобы отписаться от уведомлений - добавь реакцию на это сообщение\n" +
-                    $"Общаясь в соответствующем голосовом чате (30+минут) ты будешь автоматически добавлен в группу"
+                    $"You will be added to linked group if you played on channel 30+minutes\n"
+                    //$"Чтобы отписаться от уведомлений - добавь реакцию на это сообщение\n" +
+                    //$"Общаясь в соответствующем голосовом чате (30+минут) ты будешь автоматически добавлен в группу"
                     );
                 _savedMessages.Add(new SavedMessage() { RestUserMessage = message, VoiceChannel = socketVoiceChannel , TextChannel = textChannel});
             }
