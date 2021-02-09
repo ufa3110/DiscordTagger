@@ -329,14 +329,20 @@ namespace DiscordTagger
             }
         }
 
-        private Task UpdateCache()
+        private async Task UpdateCache()
+        {
+            UpdateCacheAsync();
+        }
+
+        private async Task UpdateCacheAsync()
         {
             using (var context = new ChannelImplementationContext())
             {
                 _implementationItemsCache = context.ImplementationItems.ToList();
             }
-            return Task.CompletedTask;
         }
+
+
 
         private Task Log(LogMessage arg)
         {
