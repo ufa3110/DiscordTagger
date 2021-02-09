@@ -18,15 +18,7 @@ namespace DiscordTagger
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGet("/index/wakemydyno.txt", async context =>
-                {
-                    await context.Response.WriteAsync("Hello World!");
-                });
                 endpoints.MapGet("/", async context =>
-                {
-                    await context.Response.WriteAsync("Hello World!");
-                });
-                endpoints.MapGet("/index", async context =>
                 {
                     await context.Response.WriteAsync("Hello World!");
                 });

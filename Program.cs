@@ -13,6 +13,8 @@ using System.Collections.Specialized;
 using System.Net.Sockets;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Hosting;
+using System.Net.NetworkInformation;
+using System.Net;
 
 namespace DiscordTagger
 {
@@ -26,7 +28,18 @@ namespace DiscordTagger
         public static async void Run(string[] args)
         {
             new Program().MainAsync();
+            KeepAlivePinger();
             CreateHostBuilder(args).Build().Run();
+        }
+
+        private async static Task KeepAlivePinger()
+        {
+            await Task.Delay(10 * 60 * 1000);
+
+            using(WebClient client = new WebClient())
+{
+                client.DownloadString("https://discordagger3110.herokuapp.com/");
+            }
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
