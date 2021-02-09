@@ -290,7 +290,7 @@ namespace DiscordTagger
         public async Task SetupChannel(SocketGuild server, string channelName, string groupName, LinkAction action)
         {
             var textChannel = server.TextChannels.FirstOrDefault();
-            var role = server.Roles.FirstOrDefault(_ => groupName.Contains(_.Name));
+            var role = server.Roles.FirstOrDefault(_ => groupName.ToLower().Contains(_.Name.ToLower()));
             var channel = server.VoiceChannels.FirstOrDefault(_ => channelName.ToLower().Contains(_.Name.ToLower()));
 
             if (role != null && action != LinkAction.None)
