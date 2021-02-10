@@ -46,3 +46,4 @@ C:\Users\azatu\source\repos\DiscordTagger\DiscordTagger\obj\Debug\netcoreapp3.1\
 C:\Users\azatu\source\repos\DiscordTagger\DiscordTagger\obj\Debug\netcoreapp3.1\DiscordTagger.dll
 C:\Users\azatu\source\repos\DiscordTagger\DiscordTagger\obj\Debug\netcoreapp3.1\DiscordTagger.pdb
 C:\Users\azatu\source\repos\DiscordTagger\DiscordTagger\obj\Debug\netcoreapp3.1\DiscordTagger.genruntimeconfig.cache
+C:\Users\azatu\source\repos\DiscordTagger\DiscordTagger\obj\Debug\netcoreapp3.1\DiscordTagger.csprojAssemblyReference.cache
